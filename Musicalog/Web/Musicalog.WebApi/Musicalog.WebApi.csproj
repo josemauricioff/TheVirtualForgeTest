@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\BusinessRules\Musicalog.BusinessRules\Musicalog.BusinessRules.csproj" />
+    <ProjectReference Include="..\..\Data\Musicalog.Entity\Musicalog.Entity.csproj" />
+  </ItemGroup>
+
+
+</Project>

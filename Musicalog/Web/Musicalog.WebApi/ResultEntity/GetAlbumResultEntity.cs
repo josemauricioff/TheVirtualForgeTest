@@ -1,10 +1,11 @@
 ﻿using Musicalog.Entity;
+using Musicalog.WebApi.Models;
 using System.Collections.Generic;
 
 namespace Musicalog.WebApi.ResultEntity
 {
     public class GetAlbumResultEntity: BaseResultEntity
     {
-        public IEnumerable<Album> AlbumList { get; set; }
+        public IEnumerable<GetAlbumModel> AlbumList { get; set; }
     }
 }

@@ -1,14 +1,10 @@
-﻿using Musicalog.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Musicalog.WebApi.Models;
 
 namespace Musicalog.WebApi.ResultEntity
 {
     public class PostAlbumResultEntity:BaseResultEntity
     {
-        public Album Album { get; set; }
+        public AlbumModel Album { get; set; }
 
     }
 }

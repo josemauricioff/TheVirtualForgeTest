@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Musicalog.BusinessRules.Interfaces;
 using Musicalog.Entity;
 using Musicalog.WebApi.ResultEntity;
 using Musicalog.WebApi.Util;
+using Musicalog.WebApi.Models;
+using System.Collections.Generic;
 
 namespace Musicalog.WebApi.Controllers
 {
@@ -28,9 +31,22 @@ namespace Musicalog.WebApi.Controllers
             try
             {
                 result.Sucsess = true;
-                result.AlbumList = await albumBusinessRules.GetAllAlbuns();
+                var albumList = await albumBusinessRules.GetAllAlbuns();
+                List<GetAlbumModel> getAlbumModelList = new List<GetAlbumModel>();
+                foreach (var album in albumList.ToList())
+                {
+                    getAlbumModelList.Add(new GetAlbumModel
+                    {
+                        Name = album.Description,
+                        Artist = album.Artist.Description,
+                        Type = album.Albumtype.Description,
+                        Stock = album.Stock
+                    });
+                }
+
+                result.AlbumList = getAlbumModelList.AsEnumerable();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result.Sucsess = false;
                 result.ErrorMessage = ErrorHandling.ReturnErrorMessage(ex);
@@ -47,7 +63,17 @@ namespace Musicalog.WebApi.Controllers
             try
             {
                 result.Sucsess = true;
-                result.Album = await albumBusinessRules.Insert(newAlbum);
+                var album = await albumBusinessRules.Insert(newAlbum);
+
+                result.Album = new AlbumModel
+                {
+                    Id = album.Id,
+                    Description = album.Description,
+                    AlbumTypeId = album.AlbumTypeId,
+                    ArtistId = album.ArtistId,
+                    Stock = album.Stock,
+                    Label = album.Label
+                };
             }
             catch (Exception ex)
             {
@@ -60,13 +86,23 @@ namespace Musicalog.WebApi.Controllers
 
         [HttpPut]
         [Produces("application/json", Type = typeof(BaseResultEntity))]
-        public async Task<IActionResult> Put(Album album)
+        public async Task<IActionResult> Put(Album updatedAlbum)
         {
             PostAlbumResultEntity result = new PostAlbumResultEntity();
             try
             {
                 result.Sucsess = true;
-                result.Album = await albumBusinessRules.Update(album);
+                var album = await albumBusinessRules.Update(updatedAlbum);
+
+                result.Album = new AlbumModel
+                {
+                    Id = album.Id,
+                    Description = album.Description,
+                    AlbumTypeId = album.AlbumTypeId,
+                    ArtistId = album.ArtistId,
+                    Stock = album.Stock,
+                    Label = album.Label
+                };
             }
             catch (Exception ex)
             {

@@ -1,0 +1,27 @@
+﻿@model List<Models.Album>
+@using GridMvc.Html
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row col-sm-12 col-md-12 col-lg-12">
+    <div class="" id="box1" style="overflow:auto;">
+        <div class="panel panel-primary height-50" style="overflow:auto;">
+            <div class="panel-heading" style="font-size: 2em;">Active Tasks</div>
+            <div class="panel-body">
+            </div>
+                @Html.Grid(Model).Named("LoggedInAgents").Columns(columns =>
+                    {
+                       columns.Add(c => c.Id, true).Titled("ID");
+                       columns.Add(c => c.CreatedDate).Titled("Created Date").SortInitialDirection(GridMvc.Sorting.GridSortDirection.Descending);
+                       columns.Add(c => c.ForeignId).Titled("Task Id");
+                       columns.Add(c => c.Owner).Titled("Owner");
+                       columns.Add(c => c.PriorityLevel).Titled("Priority Level");
+                       columns.Add(c => c.MaestroPage).Titled("Maestro Page");
+                       columns.Add(c => c.ModifiedDate).Titled("Modified Date");
+                       columns.Add(c => c.AssignementDate).Titled("Assignement Date");
+                       columns.Add(c => c.HandledDate).Titled("Handled Date");
+                   }).WithPaging(15).Sortable().Filterable(true).WithMultipleFilters().SetRowCssClasses(e => e.Id != 0 ? "trHover anchorDetail hover-cursor" : "trHover anchorDetail hover-cursor")
+        </div>
+    </div>
+</div>

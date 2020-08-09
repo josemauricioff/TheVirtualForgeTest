@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\BusinessRules\Musicalog.BusinessRules\Musicalog.BusinessRules.csproj" />
-    <ProjectReference Include="..\..\Data\Musicalog.Entity\Musicalog.Entity.csproj" />
   </ItemGroup>
 
 

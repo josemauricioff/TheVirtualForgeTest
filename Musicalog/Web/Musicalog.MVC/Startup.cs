@@ -23,6 +23,13 @@ namespace Musicalog.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AddPageRoute("/Album/Index", "");
+            });
+
+            services.AddSingleton<IConfiguration>(Configuration);
+
             services.AddControllersWithViews();
         }
 

@@ -29,7 +29,7 @@ namespace Musicalog.WebApi.Controllers
             GetArtistResultEntity result = new GetArtistResultEntity();
             try
             {
-                result.Sucsess = true;
+                result.Success = true;
                 var artistList = await artistBusinessRules.GetAllArtists();
                 List<ArtistModel> artistModelList = new List<ArtistModel>();
                 foreach (var artist in artistList.ToList())
@@ -45,7 +45,7 @@ namespace Musicalog.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                result.Sucsess = false;
+                result.Success = false;
                 result.ErrorMessage = ErrorHandling.ReturnErrorMessage(ex);
             }
 

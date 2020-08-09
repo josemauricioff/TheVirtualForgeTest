@@ -1,5 +1,4 @@
-﻿using Musicalog.Entity;
-using Musicalog.WebApi.Models;
+﻿using Musicalog.WebApi.Models;
 using System.Collections.Generic;
 
 namespace Musicalog.WebApi.ResultEntity

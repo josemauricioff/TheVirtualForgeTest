@@ -1,6 +1,6 @@
-﻿namespace Models
+﻿namespace Musicalog.MVC.Models.Album
 {
-    public class Album:BaseEntity
+    public class AlbumModel: BaseEntityModel
     {
         public int ArtistId { get; set; }
         public int AlbumTypeId { get; set; }

@@ -29,7 +29,7 @@ namespace Musicalog.WebApi.Controllers
             GetAlbumTypeResultEntity result = new GetAlbumTypeResultEntity();
             try
             {
-                result.Sucsess = true;
+                result.Success = true;
                 var albumTypeList = await albumTypeBusinessRules.GetAllAlbumTypes();
                 List<AlbumTypeModel> albumTypeModelList = new List<AlbumTypeModel>();
                 foreach (var albumType in albumTypeList.ToList())
@@ -45,7 +45,7 @@ namespace Musicalog.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                result.Sucsess = false;
+                result.Success = false;
                 result.ErrorMessage = ErrorHandling.ReturnErrorMessage(ex);
             }
 

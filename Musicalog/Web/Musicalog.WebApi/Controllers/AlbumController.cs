@@ -30,7 +30,7 @@ namespace Musicalog.WebApi.Controllers
             GetAlbumResultEntity result = new GetAlbumResultEntity();
             try
             {
-                result.Sucsess = true;
+                result.Success = true;
                 var albumList = await albumBusinessRules.GetAllAlbuns();
                 List<GetAlbumModel> getAlbumModelList = new List<GetAlbumModel>();
                 foreach (var album in albumList.ToList())
@@ -48,7 +48,7 @@ namespace Musicalog.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                result.Sucsess = false;
+                result.Success = false;
                 result.ErrorMessage = ErrorHandling.ReturnErrorMessage(ex);
             }
 
@@ -62,7 +62,7 @@ namespace Musicalog.WebApi.Controllers
             PostAlbumResultEntity result = new PostAlbumResultEntity();
             try
             {
-                result.Sucsess = true;
+                result.Success = true;
                 var album = await albumBusinessRules.Insert(newAlbum);
 
                 result.Album = new AlbumModel
@@ -77,7 +77,7 @@ namespace Musicalog.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                result.Sucsess = false;
+                result.Success = false;
                 result.ErrorMessage = ErrorHandling.ReturnErrorMessage(ex);
             }
 
@@ -91,7 +91,7 @@ namespace Musicalog.WebApi.Controllers
             PostAlbumResultEntity result = new PostAlbumResultEntity();
             try
             {
-                result.Sucsess = true;
+                result.Success = true;
                 var album = await albumBusinessRules.Update(updatedAlbum);
 
                 result.Album = new AlbumModel
@@ -106,7 +106,7 @@ namespace Musicalog.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                result.Sucsess = false;
+                result.Success = false;
                 result.ErrorMessage = ErrorHandling.ReturnErrorMessage(ex);
             }
 

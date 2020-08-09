@@ -4,15 +4,33 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Musicalog.MVC.Models.Album;
+using RestSharp;
 
 namespace Musicalog.MVC.Controllers
 {
     public class AlbumController : Controller
     {
+        protected IConfiguration configuration;
+
+        public AlbumController(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         // GET: AlbumController
         public ActionResult Index()
         {
-            return View();
+            string WebApiUri = configuration["WebApiUri"].ToString();
+
+            var client = new RestClient();
+            Uri uri = new Uri($"{WebApiUri}/album");
+            var req = new RestRequest(uri, Method.GET);
+
+            var response = client.Execute<AlbumIndexModel>(req);
+
+            return View(response.Data);
         }
 
         // GET: AlbumController/Details/5

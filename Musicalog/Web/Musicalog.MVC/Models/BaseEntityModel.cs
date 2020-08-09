@@ -1,6 +1,6 @@
-﻿namespace Models
+﻿namespace Musicalog.MVC.Models
 {
-    public class BaseEntity
+    public class BaseEntityModel
     {
         public int Id { get; set; }
         public string Description { get; set; }

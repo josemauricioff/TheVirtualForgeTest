@@ -1,6 +1,6 @@
 ﻿@model Musicalog.MVC.Models.Album.AlbumModel
 
-<form asp-action="Create">
+<form asp-action="Edit">
     @Html.Partial("_EditAlbumForm", Model)
 </form>
 
@@ -18,6 +18,8 @@
                     if (result.success == true) {
                         $("#ArtistId").append(new Option("Select an artist", ""));
                         result.artistList.forEach(artist => $("#ArtistId").append(new Option(artist.description, artist.id)));
+
+                        $("#ArtistId").val(@Model.ArtistId);
                     }
                 }
             });
@@ -33,6 +35,8 @@
                     if (result.success == true) {
                         $("#AlbumTypeId").append(new Option("Select an almbum type", ""));
                         result.albumTypeList.forEach(albumType => $("#AlbumTypeId").append(new Option(albumType.description, albumType.id)));
+
+                        $("#AlbumTypeId").val(@Model.AlbumTypeId);
                     }
                 }
             });

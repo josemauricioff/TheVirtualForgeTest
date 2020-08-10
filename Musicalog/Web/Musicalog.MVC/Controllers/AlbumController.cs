@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.Extensions.Configuration;
 using Musicalog.MVC.Models.Album;
 using RestSharp;
@@ -48,25 +49,58 @@ namespace Musicalog.MVC.Controllers
         // POST: AlbumController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(AlbumModel album)
         {
             try
             {
+                string WebApiUri = configuration["WebApiUri"].ToString();
+
+                var client = new RestClient();
+                Uri uri = new Uri($"{WebApiUri}/album");
+                var req = new RestRequest(uri, Method.POST);
+                req.RequestFormat = DataFormat.Json;
+                req.AddJsonBody(album);
+
+                var response = client.Execute(req);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
                 return View();
             }
+        }
+
+        public ActionResult Edit(int id)
+        {
+            string WebApiUri = configuration["WebApiUri"].ToString();
+
+            var client = new RestClient();
+            Uri uri = new Uri($"{WebApiUri}/album/GetAlbum?id={id}");
+            var req = new RestRequest(uri, Method.GET);
+
+            var response = client.Execute<EditAlbumModel>(req);
+
+            return View(response.Data.Album);
         }
 
         // POST: AlbumController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(AlbumModel album)
         {
             try
             {
+                string WebApiUri = configuration["WebApiUri"].ToString();
+
+                var client = new RestClient();
+                Uri uri = new Uri($"{WebApiUri}/album");
+                var req = new RestRequest(uri, Method.PUT);
+                req.RequestFormat = DataFormat.Json;
+                req.AddJsonBody(album);
+
+                var response = client.Execute(req);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -75,10 +109,24 @@ namespace Musicalog.MVC.Controllers
             }
         }
 
-        // GET: AlbumController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                string WebApiUri = configuration["WebApiUri"].ToString();
+
+                var client = new RestClient();
+                Uri uri = new Uri($"{WebApiUri}/album?id={id}");
+                var req = new RestRequest(uri, Method.DELETE);
+
+                var response = client.Execute(req);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }

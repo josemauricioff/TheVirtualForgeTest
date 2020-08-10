@@ -16,15 +16,19 @@
                     <th>Artist</th>
                     <th>Type</th>
                     <th>Stock</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 @foreach (var album in Model.AlbumList)
                 {
-                    <tr>
-                        <td>@album.Name</td>
-                        <td>@album.Artist</td>
-                        <td>@album.Type</td>
-                        <td>@album.Stock</td>
-                    </tr>
+            <tr>
+                <td>@album.Name</td>
+                <td>@album.Artist</td>
+                <td>@album.Type</td>
+                <td>@album.Stock</td>
+                <td><a class="btn btn-primary" href="@Url.Action("Edit", "Album", new { id=album.Id})" role="button">Edit Album</a></td>
+                <td><a class="btn btn-danger" href="@Url.Action("Delete", "Album", new { id=album.Id})" role="button">Delete Album</a></td>
+            </tr>
                 }
             </table>
         </div>

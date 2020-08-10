@@ -1,12 +1,11 @@
-﻿using Musicalog.WebApi.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Musicalog.WebApi.ResultEntity
+namespace Musicalog.MVC.Models.Album
 {
-    public class GetAlbumResultEntity : BaseResultEntity
+    public class EditAlbumModel : BaseModel
     {
         public AlbumModel Album { get; set; }
     }

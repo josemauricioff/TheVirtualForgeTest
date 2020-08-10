@@ -27,7 +27,7 @@ namespace Musicalog.WebApi.Controllers
         [Produces("application/json", Type = typeof(BaseResultEntity))]
         public async Task<IActionResult> Get()
         {
-            GetAlbumResultEntity result = new GetAlbumResultEntity();
+            GetAllAlbumResultEntity result = new GetAllAlbumResultEntity();
             try
             {
                 result.Success = true;
@@ -37,6 +37,7 @@ namespace Musicalog.WebApi.Controllers
                 {
                     getAlbumModelList.Add(new GetAlbumModel
                     {
+                        Id = album.Id,
                         Name = album.Description,
                         Artist = album.Artist.Description,
                         Type = album.Albumtype.Description,
@@ -55,6 +56,35 @@ namespace Musicalog.WebApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("GetAlbum")]
+        [Produces("application/json", Type = typeof(BaseResultEntity))]
+        public async Task<IActionResult> GetAlbum(int id)
+        {
+            GetAlbumResultEntity result = new GetAlbumResultEntity();
+            try
+            {
+                result.Success = true;
+                var album = await albumBusinessRules.GetAlbum(id);
+
+                result.Album = new AlbumModel
+                {
+                     AlbumTypeId = album.AlbumTypeId,
+                     ArtistId = album.ArtistId,
+                     Description = album.Description,
+                     Id = album.Id,
+                     Label = album.Label,
+                     Stock = album.Stock
+                };
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.ErrorMessage = ErrorHandling.ReturnErrorMessage(ex);
+            }
+
+            return Ok(result);
+        }
         [HttpPost]
         [Produces("application/json", Type = typeof(BaseResultEntity))]
         public async Task<IActionResult> Post(Album newAlbum)
@@ -103,6 +133,26 @@ namespace Musicalog.WebApi.Controllers
                     Stock = album.Stock,
                     Label = album.Label
                 };
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.ErrorMessage = ErrorHandling.ReturnErrorMessage(ex);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        [Produces("application/json", Type = typeof(BaseResultEntity))]
+        public async Task<IActionResult> Delete(int id)
+        {
+            PostAlbumResultEntity result = new PostAlbumResultEntity();
+            try
+            {
+                result.Success = true;
+
+                await albumBusinessRules.Remove(id);
             }
             catch (Exception ex)
             {

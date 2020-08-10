@@ -49,10 +49,5 @@ namespace Musicalog.Data.Base
             Context.Set<T>().Remove(entity);
             await Context.SaveChangesAsync();
         }
-
-        Task<T> IAsyncRepository<T>.GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -8,7 +8,7 @@ namespace Musicalog.Data.Interfaces
 {
     public interface IAsyncRepository<T> where T : BaseEntity
     {
-        Task<T> GetById(int id);
+        ValueTask<T> GetById(int id);
         Task<IEnumerable<T>> GetAll();
         Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate);
         Task<T> FirstOrDefault(Expression<Func<T, bool>> predicate);

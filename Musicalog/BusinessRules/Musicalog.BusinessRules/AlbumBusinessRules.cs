@@ -20,6 +20,11 @@ namespace Musicalog.BusinessRules
             return await albumRepository.GetAll();
         }
 
+        public async Task<Album> GetAlbum(int id)
+        {
+            return await albumRepository.GetById(id);
+        }
+
         public async Task<Album> Insert(Album newAlbum)
         {
             return await albumRepository.Add(newAlbum);
@@ -28,6 +33,12 @@ namespace Musicalog.BusinessRules
         public async Task<Album> Update(Album album)
         {
             return await albumRepository.Update(album);
+        }
+
+        public async Task Remove(int id)
+        {
+            var album = await GetAlbum(id);
+            await albumRepository.Remove(album);
         }
     }
 }
